@@ -6,44 +6,44 @@ export default function App() {
   const addStyles = [
     {
       id: 1,
-      value: "font-weight"
+      value: "font-weight",
     },
     {
       id: 2,
-      value: "text-align"
+      value: "text-align",
     },
     {
       id: 3,
-      value: "color"
+      value: "color",
     },
     {
       id: 4,
-      value: "font-style"
+      value: "font-style",
     },
     {
       id: 5,
-      value: "text-decoration"
+      value: "text-decoration",
     },
     {
       id: 6,
-      value: "background-color"
+      value: "background-color",
     },
     {
       id: 7,
-      value: "line-height"
+      value: "line-height",
     },
     {
       id: 8,
-      value: "letter-spacing"
+      value: "letter-spacing",
     },
     {
       id: 9,
-      value: "writing-mode"
+      value: "writing-mode",
     },
     {
       id: 10,
-      value: "link"
-    }
+      value: "link",
+    },
   ];
 
   //クラス付与用のstate
@@ -69,10 +69,6 @@ export default function App() {
   const [isActive10, setIsActive10] = useState(true);
 
   const eleRef = useRef(null);
-  // const handleup = () => {
-  //   let hoverText = window.getSelection();
-  //   let spans = document.querySelectorAll("span");
-  // };
 
   // ★BRタグがあっても取得できた
   // const createButton = () => {
@@ -84,14 +80,33 @@ export default function App() {
 
   const createButton = () => {
     const range = window.getSelection().getRangeAt(0);
-    const selectedText = range.toString();
-    const textNodes = selectedText.split("");
-    textNodes.forEach((text) => {
-      const span = document.createElement("span");
-      span.innerText = text;
-      console.log(span);
+    // const selectedText = range.toString();
+    const span = document.createElement("span");
+    span.appendChild(range.cloneContents());
+    const textNodes = span.innerHTML.split("");
+    textNodes.map((ele) => {
+      span.innerText = ele;
+      range.deleteContents();
+      range.insertNode(span);
+      range.setStartAfter(span);
     });
+    console.log(span);
   };
+
+  // 一文字ずつspanで囲うやつ
+  //     const range = window.getSelection().getRangeAt(0);
+  //   const selectedText = range.toString();
+  //   const textNodes = selectedText.split("");
+  //   if(range.startContainer.parentNode.tagName !== "SPAN"){
+  //     textNodes.forEach((text) => {
+  //       const span = document.createElement("span");
+  //       span.innerText = text;
+  //       range.deleteContents();
+  //       range.insertNode(span);
+  //       range.setStartAfter(span);
+  //     });
+  //   }
+  // };
   return (
     <>
       <div className="App" ref={eleRef} onClick={createButton}>
@@ -101,7 +116,7 @@ export default function App() {
           せそ
         </p>
         <p>
-          <strong>カキクケコ</strong>
+          カキ <strong>ク</strong>ケコ
         </p>
       </div>
       {addStyles.map((item, i) => {
