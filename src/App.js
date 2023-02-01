@@ -6,44 +6,44 @@ export default function App() {
   const addStyles = [
     {
       id: 1,
-      value: "font-weight"
+      value: "font-weight",
     },
     {
       id: 2,
-      value: "text-align"
+      value: "text-align",
     },
     {
       id: 3,
-      value: "color"
+      value: "color",
     },
     {
       id: 4,
-      value: "font-style"
+      value: "font-style",
     },
     {
       id: 5,
-      value: "text-decoration"
+      value: "text-decoration",
     },
     {
       id: 6,
-      value: "background-color"
+      value: "background-color",
     },
     {
       id: 7,
-      value: "line-height"
+      value: "line-height",
     },
     {
       id: 8,
-      value: "letter-spacing"
+      value: "letter-spacing",
     },
     {
       id: 9,
-      value: "writing-mode"
+      value: "writing-mode",
     },
     {
       id: 10,
-      value: "link"
-    }
+      value: "link",
+    },
   ];
 
   //クラス付与用のstate
@@ -75,27 +75,35 @@ export default function App() {
   // };
 
   // ★BRタグがあっても取得できた
+
   // const createButton = () => {
   //   const range = window.getSelection().getRangeAt(0);
-  //   const span = document.createElement("span");
-  //   span.appendChild(range.cloneContents());
-  //   console.log(span);
+  //   const selectedText = range.toString();
+  //   const textNodes = selectedText.split("");
+  //   textNodes.forEach((text) => {
+  //     const span = document.createElement("span");
+  //     span.innerText = text;
+  //     console.log(span);
+  //   });
   // };
 
+  // ①選択した範囲を取得 ★完
+  // ②選択した範囲の親要素を取得　★完
+  // 　③選択した範囲のテキストを取得してspanに入れる　★完
+  // ④選択した親要素にspanタグがあったら挿入しない　★完
   const createButton = () => {
     const range = window.getSelection().getRangeAt(0);
-    const selectedText = range.toString();
-    const textNodes = selectedText.split("");
-    textNodes.forEach((text) => {
-      const span = document.createElement("span");
-      span.innerText = text;
-      console.log(span);
-    });
+    console.log(range);
+    let span = document.createElement("span");
+    range.surroundContents(span);
   };
+
   return (
     <>
-      <div className="App" ref={eleRef} onClick={createButton}>
-        <p>ABCDE</p>
+      <div className="App" ref={eleRef}>
+        <p>
+          AB<span>C</span>DE
+        </p>
         <p>
           さしす <br />
           せそ
@@ -108,7 +116,8 @@ export default function App() {
         return (
           <button
             key={item.id}
-            // onClick={item.click}
+            onClick={item.click}
+            onClick={createButton}
             id={item.id}
           >
             {item.value}
