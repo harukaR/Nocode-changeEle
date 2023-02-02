@@ -2,3 +2,14 @@
   font-family: sans-serif;
   text-align: center;
 }
+
+/* ボタンデザイン */
+.active {
+  background: red;
+}
+.font-weight {
+  font-weight: bold;
+}
+.font-nomal {
+  font-weight: normal;
+}
